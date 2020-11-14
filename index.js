@@ -665,7 +665,7 @@ if (text.includes("!wallpaper"))
 	   
 if (text.includes("!animepict"))
    {
-    var items = ["anime girl", "anime cantik", "anime boy", "loli", "waifu cantik", "anime", "beautiful anime", "kawai loli", "kawai anime", "anime loli kawai"];
+    var items = ["anime girl", "anime cantik", "anime boy", "loli", "waifu cantik", "anime", "beautiful anime", "kawai loli", "kawai anime", "anime loli kawai", "loli kawai"];
     var nime = items[Math.floor(Math.random() * items.length)];
     var url = "https://api.fdci.se/rep.php?gambar=" + nime;
     
@@ -706,16 +706,35 @@ if (text.includes("!alay")){
 		conn.sendMessage(id, hasil, MessageType.text)
 	})
 }
+if (text.includes("!ytmp3")){
+const teks = text.replace(/!ytmp3 /, "")
+axios.get(`https://alfians-api.herokuapp.com/api/yta?url=${teks}`).then((res) => {
+    let hasil = `Lagu Berhasil Di Download, silahkan klik link dan download hasilnya\nKlik link dibawah😉👇👇\n\nJudul: ${res.data.title}\n\nUkuran audio: ${res.data.filesize}\n\nLink: ${res.data.result}`;
+    conn.sendMessage(id, hasil ,MessageType.text);
+})
+}
 
+if (text.includes("!ytmp4")){
+const teks = text.replace(/!ytmp4 /, "")
+axios.get(`https://alfians-api.herokuapp.com/api/ytv?url=${teks}`).then((res) => {
+    let hasil = `Video Berhasil Di Download, silahkan klik link dan download hasilnya\nKlik link dibawah😉👇👇\n\nJudul: ${res.data.title}\n\nUkuran video: ${res.data.filesize}\n\nLink: ${res.data.result}`;
+    conn.sendMessage(id, hasil ,MessageType.text);
+})
+}
 
 //end
 
-if (text.includes("!nulis")){
-  const teks = text.replace(/!nulis /, "")
-axios.get(`https://mhankbarbar.herokuapp.com/nulis?text=${teks}&apiKey=zFuV88pxcIiCWuYlwg57`).then((res) => {
-    let hasil = `Silahkan download hasil dibawah ini agar hasilnya lebih bagus! ðŸ‘Œ\n\n${res.data.result}`;
-    conn.sendMessage(id, hasil ,MessageType.text);
-})
+if (text.includes('!nulis')){
+  var teks = text.replace(/!nulis /, '')
+    axios.get('https://bangandre.herokuapp.com/nulis?teks='+teks)
+    .then((res) => {
+      imageToBase64(res.data.url)
+        .then(
+          (ress) => {
+            var buf = Buffer.from(ress, 'base64')
+            conn.sendMessage(id, buf, MessageType.image)
+        })
+    })
 }
 
 	
