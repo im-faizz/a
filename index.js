@@ -369,19 +369,6 @@ conn.sendMessage(id, 'ulangi dengan  !pict cewek/cowok\n\nMisal: !pict cowok' ,M
       }
 
    };
-      if (text.includes("!covid"))
-   {
-const get = require('got')
-    const body = await get.post('https://api.kawalcorona.com/indonesia', {
-
-    }).json();
-    var positif = (body[0]['positif']);
-    var sembuh  = (body[0]['sembuh']);
-    var meninggal = (body[0]['meninggal']);
-    var dirawat = (body[0]['dirawat']);
-    console.log(body[0]['name'])
-    conn.sendMessage(id,`DATA WABAH COVID-19 TERBARU DI INDONESIA”Positif ==> ${positif} \Sembuh ==> ${sembuh} \­Meninggal ==> ${meninggal}\’Dirawat ==> ${dirawat}`, MessageType.text);
-}
    if (text.includes("!quotes"))
    {
       var url = 'https://jagokata.com/kata-bijak/acak.html'
@@ -721,7 +708,33 @@ axios.get(`https://alfians-api.herokuapp.com/api/ytv?url=${teks}`).then((res) =>
     conn.sendMessage(id, hasil ,MessageType.text);
 })
 }
+if (text.includes("!wiki")){
+const teks = text.replace(/!wiki /, "")
+axios.get(`https://st4rz.herokuapp.com/api/wiki?q=${teks}`).then((res) => {
+    let hasil = `Menurut Wikipedia:\n\n${res.data.result}`;
+    conn.sendMessage(id, hasil ,MessageType.text);
+})
+}
+if (text.includes("!sholat")){
+  const teks = text.replace(/!sholat /, "")
+  axios.get(`https://api.haipbis.xyz/jadwalsholat?daerah=${teks}`).then ((res) =>{
+  let hasil = `Jadwal sholat di ${teks} hari ini adalah\n\n📛Imsyak : ${res.data.Imsyak}\n📛Subuh : ${res.data.Subuh} WIB\n📛Dzuhur : ${res.data.Dzuhur}WIB\n📛Ashar : ${res.data.Ashar} WIB\n📛Maghrib : ${res.data.Maghrib}\n📛Isya : ${res.data.Isya} WIB\n📛Tengah malam : ${res.data.Dhuha} WIB`;
+  conn.sendMessage(id, hasil, MessageType.text);
+})
+ if (text.includes("!covid"))
+   {
+const get = require('got')
+    const body = await get.post('https://api.kawalcorona.com/indonesia', {
 
+    }).json();
+    var positif = (body[0]['positif']);
+    var sembuh  = (body[0]['sembuh']);
+    var meninggal = (body[0]['meninggal']);
+    var dirawat = (body[0]['dirawat']);
+    console.log(body[0]['name'])
+    conn.sendMessage(id,`♻️’DATA WABAH COVID-19 TERBARU DI INDONESIA♻️\n\n👻Positif ==> ${positif} \n😁Sembuh ==> ${sembuh} \n🤧Meninggal ==> ${meninggal}\n😫’Dirawat ==> ${dirawat}`, MessageType.text);
+}	
+	
 //end
 
 if (text.includes('!nulis')){
